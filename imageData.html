@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>imageData</title>
+  <style>
+    #cs, #video {
+      border: 1px solid gray;
+    }
+  </style>
+</head>
+<body>
+  <video id="video" controls loop src=""></video>
+  <canvas id="cs" width=500 height=500></canvas>
+
+  <script>
+    var c = document.getElementById("cs");
+    var ctx = c.getContext("2d");
+
+    var imageData = ctx.getImageData(0, 0, 500, 500);
+    // my own implement
+    // for (var i = 0; i < imageData.data.length; i+=40) {
+    //   for (var j = i; (j - i) < 10; j+=4) {
+    //     imageData.data[j + 0] = 0;
+    //     imageData.data[j + 1] = 255;
+    //     imageData.data[j + 2] = 0;
+    //     imageData.data[j + 3] = 255;
+    //   }
+    // }
+
+    // optional implement
+    paintGreen(imageData);
+
+    ctx.putImageData(imageData, 0, 0);
+
+    function paintGreen(imageData) {
+      var pixelNums = imageData.data.length / 4;
+      for (var i = 0; i < pixelNums; i++) {
+        if (i % 10 === 0) {
+          imageData.data[i * 4 + 1] = 255;
+          imageData.data[i * 4 + 3] = 255;
+        }
+      }
+    }
+  </script>
+</body>
+</html>
